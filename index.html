@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santa World — Carlisle, PA</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Lato:wght@300;400;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #C0392B;
+    --dark-red: #922B21;
+    --green: #1E6B3C;
+    --dark-green: #145A32;
+    --gold: #D4AC0D;
+    --light-gold: #F9E79F;
+    --cream: #FEF9F0;
+    --white: #ffffff;
+  }
+
+  body { font-family: 'Lato', sans-serif; background: var(--cream); color: #222; overflow-x: hidden; }
+
+  /* SNOWFLAKES */
+  .snowflakes { position: fixed; top: 0; left: 0; width: 100%; pointer-events: none; z-index: 9999; }
+  .snowflake { position: absolute; top: -20px; color: #fff; font-size: 1.2em; opacity: 0.7; animation: fall linear infinite; }
+  .snowflake:nth-child(1)  { left: 5%;  animation-duration: 8s;  animation-delay: 0s;   font-size: 0.8em; }
+  .snowflake:nth-child(2)  { left: 15%; animation-duration: 12s; animation-delay: 2s;   font-size: 1.2em; }
+  .snowflake:nth-child(3)  { left: 25%; animation-duration: 9s;  animation-delay: 4s;   font-size: 0.6em; }
+  .snowflake:nth-child(4)  { left: 35%; animation-duration: 11s; animation-delay: 1s;   font-size: 1em;   }
+  .snowflake:nth-child(5)  { left: 45%; animation-duration: 10s; animation-delay: 3s;   font-size: 0.9em; }
+  .snowflake:nth-child(6)  { left: 55%; animation-duration: 7s;  animation-delay: 5s;   font-size: 1.3em; }
+  .snowflake:nth-child(7)  { left: 65%; animation-duration: 13s; animation-delay: 0.5s; font-size: 0.7em; }
+  .snowflake:nth-child(8)  { left: 75%; animation-duration: 9s;  animation-delay: 2.5s; font-size: 1.1em; }
+  .snowflake:nth-child(9)  { left: 85%; animation-duration: 11s; animation-delay: 1.5s; font-size: 0.8em; }
+  .snowflake:nth-child(10) { left: 92%; animation-duration: 8s;  animation-delay: 3.5s; font-size: 1em;   }
+  @keyframes fall { 0% { top: -20px; transform: rotate(0deg); opacity: 0.7; } 100% { top: 110vh; transform: rotate(360deg); opacity: 0; } }
+
+  /* NAV */
+  nav {
+    background: var(--dark-red);
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .nav-logo { font-family: 'Mountains of Christmas', cursive; font-size: 28px; color: var(--light-gold); letter-spacing: 1px; }
+  .nav-logo span { color: #fff; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--light-gold); }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--dark-red) 0%, var(--red) 50%, var(--dark-green) 100%);
+    padding: 100px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🎄🎁🦌🔔🎄🎁🦌🔔🎄🎁🦌🔔🎄🎁🦌🔔';
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 100%;
+    font-size: 20px;
+    opacity: 0.15;
+    letter-spacing: 8px;
+    white-space: nowrap;
+  }
+  .hero-emoji { font-size: 80px; margin-bottom: 20px; display: block; animation: bounce 2s infinite; }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .hero h1 { font-family: 'Mountains of Christmas', cursive; font-size: 72px; color: #fff; line-height: 1.1; margin-bottom: 16px; text-shadow: 2px 4px 8px rgba(0,0,0,0.3); }
+  .hero h1 span { color: var(--light-gold); }
+  .hero p { font-size: 20px; color: rgba(255,255,255,0.9); max-width: 600px; margin: 0 auto 36px auto; line-height: 1.7; }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: #000; padding: 16px 36px; border-radius: 50px; font-weight: 700; font-size: 15px; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .btn-secondary { background: transparent; color: #fff; padding: 16px 36px; border-radius: 50px; font-weight: 700; font-size: 15px; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border: 2px solid #fff; transition: all 0.2s; }
+  .btn-secondary:hover { background: #fff; color: var(--dark-red); }
+
+  /* SECTIONS */
+  section { padding: 80px 40px; }
+  .section-label { text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+  .section-title { text-align: center; font-family: 'Mountains of Christmas', cursive; font-size: 48px; color: var(--dark-green); margin-bottom: 16px; }
+  .section-sub { text-align: center; font-size: 16px; color: #555; max-width: 600px; margin: 0 auto 52px auto; line-height: 1.7; }
+  .divider { width: 60px; height: 4px; background: var(--gold); margin: 0 auto 20px auto; border-radius: 2px; }
+
+  /* ABOUT */
+  .about { background: #fff; }
+  .about-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+  .about-icon { font-size: 80px; margin-bottom: 24px; }
+  .about p { font-size: 17px; line-height: 1.9; color: #444; margin-bottom: 16px; }
+  .about-badges { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+  .badge { background: var(--cream); border: 2px solid var(--gold); border-radius: 50px; padding: 10px 24px; font-size: 13px; font-weight: 700; color: var(--dark-red); }
+
+  /* SERVICES */
+  .services { background: var(--cream); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; max-width: 1100px; margin: 0 auto; }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-top: 5px solid var(--red);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,0.14); }
+  .card:nth-child(2) { border-top-color: var(--green); }
+  .card:nth-child(3) { border-top-color: var(--gold); }
+  .card:nth-child(4) { border-top-color: var(--dark-red); }
+  .card-icon { font-size: 48px; margin-bottom: 16px; }
+  .card h3 { font-family: 'Mountains of Christmas', cursive; font-size: 26px; color: var(--dark-green); margin-bottom: 10px; }
+  .card p { font-size: 13px; color: #666; line-height: 1.7; margin-bottom: 20px; }
+  .price-tag { background: var(--dark-red); color: #fff; border-radius: 50px; padding: 10px 22px; font-size: 16px; font-weight: 700; display: inline-block; }
+  .card:nth-child(2) .price-tag { background: var(--green); }
+  .card:nth-child(3) .price-tag { background: var(--gold); color: #000; }
+  .card:nth-child(4) .price-tag { background: var(--dark-red); }
+
+  /* AREA */
+  .area { background: var(--dark-green); }
+  .area .section-title { color: #fff; }
+  .area .section-sub { color: rgba(255,255,255,0.8); }
+  .area .section-label { color: var(--light-gold); }
+  .area .divider { background: var(--light-gold); }
+  .area-box { background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 40px; max-width: 600px; margin: 0 auto; text-align: center; }
+  .area-box .map-icon { font-size: 56px; margin-bottom: 16px; }
+  .area-box h3 { font-family: 'Mountains of Christmas', cursive; font-size: 32px; color: var(--light-gold); margin-bottom: 12px; }
+  .area-box p { color: rgba(255,255,255,0.85); font-size: 15px; line-height: 1.8; }
+  .area-box .further { margin-top: 20px; background: rgba(255,255,255,0.15); border-radius: 10px; padding: 16px; color: #fff; font-size: 14px; }
+
+  /* BOOKING */
+  .booking { background: #fff; }
+  .booking-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+  .contact-box { background: var(--dark-red); border-radius: 20px; padding: 52px 40px; color: #fff; }
+  .contact-box h3 { font-family: 'Mountains of Christmas', cursive; font-size: 40px; color: var(--light-gold); margin-bottom: 12px; }
+  .contact-box p { font-size: 16px; color: rgba(255,255,255,0.85); margin-bottom: 32px; line-height: 1.7; }
+  .contact-methods { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+  .contact-method { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px 28px; text-align: center; min-width: 180px; }
+  .contact-method .icon { font-size: 32px; margin-bottom: 8px; }
+  .contact-method p { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 4px; }
+  .contact-method a { color: var(--light-gold); font-size: 17px; font-weight: 700; text-decoration: none; }
+  .contact-method a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer { background: #111; color: rgba(255,255,255,0.6); text-align: center; padding: 32px 40px; font-size: 13px; }
+  footer span { color: var(--light-gold); }
+
+  /* MOBILE */
+  @media (max-width: 700px) {
+    nav { padding: 14px 20px; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 12px; }
+    .hero { padding: 70px 20px; }
+    .hero h1 { font-size: 48px; }
+    .hero p { font-size: 16px; }
+    section { padding: 60px 20px; }
+    .section-title { font-size: 36px; }
+    .contact-box { padding: 36px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SNOWFLAKES -->
+<div class="snowflakes" aria-hidden="true">
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❅</div>
+  <div class="snowflake">❆</div>
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❅</div>
+  <div class="snowflake">❆</div>
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❅</div>
+  <div class="snowflake">❆</div>
+  <div class="snowflake">❄</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🎅 Santa <span>World</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#area">Service Area</a>
+    <a href="#booking">Book Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-emoji">🎅</span>
+  <h1>Magic, Joy &amp;<br><span>The Real Santa</span></h1>
+  <p>Bringing the spirit of Christmas to your home, your party, and your company — right here in Carlisle, PA.</p>
+  <div class="hero-btns">
+    <a href="#booking" class="btn-primary">📞 Book Santa Now</a>
+    <a href="#services" class="btn-secondary">View Services</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="section-label">Who Is Santa?</div>
+    <div class="divider"></div>
+    <h2 class="section-title">The Jolliest Santa<br>You'll Ever Meet</h2>
+    <div class="about-icon">🎄</div>
+    <p>When Santa walks into the room, you'll know — because he doesn't just look the part, he <em>lives</em> it. With a genuine rosy glow, a laugh that fills the whole house, and a warmth that puts everyone at ease, this is the Santa your family will never forget.</p>
+    <p>Available for children's parties, corporate events, virtual Zoom appearances, and home visits throughout the Carlisle, PA area. Whether it's 5 kids or 500 employees — Santa brings the magic every single time.</p>
+    <div class="about-badges">
+      <div class="badge">🏠 Home Visits</div>
+      <div class="badge">🎉 Kids Parties</div>
+      <div class="badge">🏢 Corporate Events</div>
+      <div class="badge">💻 Zoom Calls</div>
+      <div class="badge">📸 Photos Available</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">What We Offer</div>
+  <div class="divider"></div>
+  <h2 class="section-title">Services &amp; Pricing</h2>
+  <p class="section-sub">Every appearance is fully committed — Santa shows up ready to make memories that last a lifetime.</p>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-icon">🎉</div>
+      <h3>Kids' Party</h3>
+      <p>Santa comes to your home or venue to delight the kids, hand out cheer, take photos, and make the whole party unforgettable. 2-hour minimum.</p>
+      <div class="price-tag">$125 / hour</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🏢</div>
+      <h3>Corporate Event</h3>
+      <p>Bring the holiday spirit to your team or client event. Santa is professional, punctual, and perfect for company parties. Maximum 2 hours.</p>
+      <div class="price-tag">$300 / hour</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">💻</div>
+      <h3>Zoom Call</h3>
+      <p>Can't be in person? No problem. Santa hops on a 15-minute Zoom call to surprise your kids, grandkids, or team — from anywhere in the world.</p>
+      <div class="price-tag">$30 / 15 min</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🏠</div>
+      <h3>Home Visit</h3>
+      <p>Santa comes right to your front door for a personal, intimate Christmas experience your family will talk about for years. Photos included.</p>
+      <div class="price-tag">Call for Pricing</div>
+    </div>
+
+  </div>
+
+  <p style="text-align:center; margin-top:36px; font-size:14px; color:#888;">📸 Photo opportunities available at all in-person appearances &nbsp;|&nbsp; 2-hour minimum on all in-person bookings</p>
+</section>
+
+<!-- SERVICE AREA -->
+<section class="area" id="area">
+  <div class="section-label" style="color:var(--light-gold);">Where We Go</div>
+  <div class="divider" style="background:var(--light-gold);"></div>
+  <h2 class="section-title" style="color:#fff;">Service Area</h2>
+  <p class="section-sub" style="color:rgba(255,255,255,0.8);">Santa covers a wide area around Carlisle, PA — and will go the extra mile for the right occasion.</p>
+
+  <div class="area-box">
+    <div class="map-icon">📍</div>
+    <h3>Carlisle, PA &amp; Surrounding Areas</h3>
+    <p>Santa proudly serves <strong>Carlisle, PA and within a 25-mile radius</strong> — covering communities throughout Cumberland County and beyond.</p>
+    <div class="further">
+      🛷 <strong>Outside the 25-mile radius?</strong><br>
+      Give Santa a call or send a text — travel may be available for the right event!<br>
+      <strong>(717) 275-2734</strong>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="section-label">Ready to Book?</div>
+  <div class="divider"></div>
+  <h2 class="section-title">Get in Touch with Santa</h2>
+  <p class="section-sub">Dates fill up fast during the holiday season — reach out early to lock in your spot!</p>
+
+  <div class="booking-inner">
+    <div class="contact-box">
+      <h3>Ho Ho Ho! 🎅</h3>
+      <p>Call or text Santa directly to check availability, ask questions, or book your event. Santa looks forward to hearing from you!</p>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <div class="icon">📞</div>
+          <p>Call or Text</p>
+          <a href="tel:7172752734">(717) 275-2734</a>
+        </div>
+        <div class="contact-method">
+          <div class="icon">💬</div>
+          <p>Text Anytime</p>
+          <a href="sms:7172752734">(717) 275-2734</a>
+        </div>
+        <div class="contact-method">
+          <div class="icon">📍</div>
+          <p>Based In</p>
+          <a>Carlisle, PA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>🎅 <span>Santa World</span> &nbsp;|&nbsp; Carlisle, PA &nbsp;|&nbsp; (717) 275-2734 &nbsp;|&nbsp; Serving a 25-mile radius</p>
+  <p style="margin-top:8px;">Bringing the magic of Christmas to families &amp; businesses — one visit at a time. 🎄</p>
+</footer>
+
+</body>
+</html>
